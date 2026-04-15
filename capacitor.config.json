@@ -1,0 +1,20 @@
+{
+  "appId": "com.michel.garlandat.dynastiesroyales",
+  "appName": "Dynasties Royales",
+  "webDir": "App/public",
+  "bundledWebRuntime": false,
+  "backgroundColor": "#1A1209",
+  "ios": {
+    "backgroundColor": "#1A1209",
+    "contentInset": "automatic",
+    "scrollEnabled": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    },
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
+}

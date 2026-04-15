@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>7 Familles Royales</title>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9993A;--gold-light:#E8C76A;--gold-pale:#F5E8C0;--ink:#1A1209;--parchment:#F9F0DC;--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px)}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#1A1209;overflow:hidden}
+#app-root{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;background:#1A1209;font-family:'Cormorant Garamond',Georgia,serif;color:#F9F0DC}
+header{flex-shrink:0;background:linear-gradient(180deg,#0D0A04,#1A1209);border-bottom:1px solid rgba(201,153,58,0.3);padding:calc(var(--safe-top) + 10px) 16px 12px;position:relative}
+.header-top{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px}
+.fleur{font-size:18px;color:#C9993A;opacity:0.7}
+h1{font-family:'IM Fell English',serif;font-size:24px;letter-spacing:0.05em;background:linear-gradient(135deg,#E8C76A,#C9993A,#F5E8C0,#C9993A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.subtitle{text-align:center;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(201,153,58,0.45);margin-bottom:8px;font-style:italic}
+.tab-bar{display:flex;border-bottom:1px solid rgba(201,153,58,0.15);margin-bottom:8px}
+.tab-btn{flex:1;padding:7px 4px;background:none;border:none;border-bottom:2px solid transparent;font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,153,58,0.4);cursor:pointer}
+.tab-btn.active{color:#C9993A;border-bottom-color:#C9993A}
+.search-wrap{position:relative;margin-bottom:8px}
+.search-wrap input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(201,153,58,0.25);border-radius:8px;padding:8px 12px 8px 34px;color:#F9F0DC;font-family:'Cormorant Garamond',serif;font-size:15px;outline:none}
+.search-wrap input:focus{border-color:#C9993A}
+.search-wrap input::placeholder{color:rgba(245,232,192,0.3);font-style:italic}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:rgba(201,153,58,0.5);font-size:14px;pointer-events:none}
+.filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.pill{flex-shrink:0;padding:4px 11px;border-radius:20px;font-size:11px;font-family:'Cormorant Garamond',serif;cursor:pointer;border:1px solid transparent;user-select:none;-webkit-user-select:none}
+.pill-all{background:rgba(201,153,58,0.12);border-color:rgba(201,153,58,0.35);color:#E8C76A}
+.pill-all.on{background:#C9993A;color:#1A1209;border-color:#C9993A;font-weight:600}
+.pill-Bourbons{background:rgba(26,107,63,0.12);border-color:rgba(26,107,63,0.35);color:#80E0A0}
+.pill-Bourbons.on{background:#1A6B3F;color:#fff;border-color:#1A6B3F}
+.pill-Habsbourg{background:rgba(139,26,26,0.12);border-color:rgba(139,26,26,0.35);color:#F5A0A0}
+.pill-Habsbourg.on{background:#8B1A1A;color:#fff;border-color:#8B1A1A}
+.pill-Windsor{background:rgba(26,63,107,0.12);border-color:rgba(26,63,107,0.35);color:#A0C4F5}
+.pill-Windsor.on{background:#1A3F6B;color:#fff;border-color:#1A3F6B}
+.pill-Romanov{background:rgba(107,63,160,0.12);border-color:rgba(107,63,160,0.35);color:#C9A0F5}
+.pill-Romanov.on{background:#6B3FA0;color:#fff;border-color:#6B3FA0}
+.pill-Hohenzollern{background:rgba(90,58,16,0.15);border-color:rgba(140,100,40,0.35);color:#E0C070}
+.pill-Hohenzollern.on{background:#5A3A10;color:#fff;border-color:#5A3A10}
+.pill-Wittelsbach{background:rgba(10,74,74,0.15);border-color:rgba(20,120,120,0.35);color:#80D8D8}
+.pill-Wittelsbach.on{background:#0A4A4A;color:#fff;border-color:#0A4A4A}
+.pill-Savoie{background:rgba(107,74,26,0.15);border-color:rgba(160,110,40,0.35);color:#E0B070}
+.pill-Savoie.on{background:#6B4A1A;color:#fff;border-color:#6B4A1A}
+#scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.count-bar{padding:7px 16px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,153,58,0.4);border-bottom:1px solid rgba(201,153,58,0.07)}
+.list-wrap{padding:8px 12px calc(var(--safe-bot) + 20px)}
+.dyn-header{display:flex;align-items:center;gap:8px;padding:14px 4px 8px}
+.dyn-line{flex:1;height:1px;background:rgba(201,153,58,0.1)}
+.dyn-label{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,153,58,0.38);font-style:italic}
+.card{display:flex;align-items:center;gap:14px;padding:12px 14px;background:rgba(255,255,255,0.025);border:1px solid rgba(201,153,58,0.1);border-radius:12px;margin-bottom:8px;cursor:pointer;position:relative;overflow:hidden}
+.card:active{background:rgba(255,255,255,0.05)}
+.card-bar{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.bar-Bourbons{background:#1A6B3F}.bar-Habsbourg{background:#8B1A1A}.bar-Windsor{background:#1A3F6B}
+.bar-Romanov{background:#6B3FA0}.bar-Hohenzollern{background:#5A3A10}.bar-Wittelsbach{background:#0A4A4A}.bar-Savoie{background:#6B4A1A}
+.thumb{width:62px;height:72px;border-radius:8px;border:1px solid rgba(201,153,58,0.2);flex-shrink:0;overflow:hidden;background:rgba(255,255,255,0.04);position:relative;display:flex;align-items:center;justify-content:center}
+.thumb-ph{font-size:26px;color:rgba(201,153,58,0.22)}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity .4s}
+.thumb img.on{opacity:1}
+.card-info{flex:1;min-width:0}
+.card-country{font-size:10px;letter-spacing:0.1em;color:rgba(201,153,58,0.38);text-transform:uppercase;margin-bottom:2px}
+.card-name{font-family:'IM Fell English',serif;font-size:17px;color:#F9F0DC;line-height:1.2;margin-bottom:3px}
+.card-epithet{font-style:italic;font-size:13px;color:#C9993A;margin-bottom:4px;opacity:0.85}
+.card-reign{font-size:12px;color:rgba(245,232,192,0.45)}
+.card-reign span{background:rgba(201,153,58,0.09);border:1px solid rgba(201,153,58,0.18);border-radius:4px;padding:1px 6px}
+.card-arr{color:rgba(201,153,58,0.28);font-size:14px;flex-shrink:0}
+.empty{text-align:center;padding:60px 20px;color:rgba(201,153,58,0.28);font-style:italic;font-size:16px}
+.backdrop{position:fixed;inset:0;background:rgba(10,8,3,0.85);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .25s}
+.backdrop.on{opacity:1;pointer-events:all}
+.sheet{width:100%;background:linear-gradient(180deg,#1E1507,#130F04);border-top:1px solid rgba(201,153,58,0.3);border-radius:20px 20px 0 0;padding:0 0 calc(var(--safe-bot) + 24px);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,0,1);max-height:90vh;overflow-y:auto}
+.backdrop.on .sheet{transform:translateY(0)}
+.handle{width:40px;height:4px;background:rgba(201,153,58,0.28);border-radius:2px;margin:12px auto 0}
+.modal-img{position:relative;height:240px;overflow:hidden;background:#0a0804}
+.modal-img::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,#1E1507);z-index:2}
+.modal-img img{width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity .5s;position:relative;z-index:1}
+.modal-img img.on{opacity:0.82}
+.modal-img-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:72px;opacity:0.18}
+.modal-spin-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:3}
+.spin{width:28px;height:28px;border:2px solid rgba(201,153,58,0.15);border-top-color:rgba(201,153,58,0.55);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modal-body{padding:0 20px;position:relative;z-index:2;margin-top:-20px}
+.modal-badge{display:inline-block;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:10px;border:1px solid}
+.modal-name{font-family:'IM Fell English',serif;font-size:28px;line-height:1.1;color:#F9F0DC;margin-bottom:4px}
+.modal-epithet{font-style:italic;font-size:17px;color:#C9993A;margin-bottom:16px}
+.modal-spacer{margin-bottom:12px}
+.modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.stat{background:rgba(255,255,255,0.04);border:1px solid rgba(201,153,58,0.13);border-radius:10px;padding:10px 12px}
+.stat-full{grid-column:1/-1}
+.stat-lbl{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(201,153,58,0.42);margin-bottom:4px}
+.stat-val{font-size:15px;color:#F9F0DC;font-weight:300}
+.stat-val-sm{font-size:13px;color:#F9F0DC;font-weight:300}
+.modal-desc{font-size:14.5px;line-height:1.7;color:rgba(245,232,192,0.68);font-style:italic;border-left:2px solid rgba(201,153,58,0.22);padding-left:14px;margin-bottom:16px}
+.modal-events{margin-bottom:16px}
+.btn-close{width:100%;padding:12px;background:rgba(201,153,58,0.1);border:1px solid rgba(201,153,58,0.25);border-radius:10px;color:#E8C76A;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0.1em;cursor:pointer}
+.btn-gear{position:absolute;right:16px;top:calc(var(--safe-top) + 10px);width:36px;height:36px;border-radius:50%;background:rgba(201,153,58,0.1);border:1px solid rgba(201,153,58,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(201,153,58,0.7);font-size:18px;user-select:none;-webkit-user-select:none}
+.btn-lang{position:absolute;left:16px;top:calc(var(--safe-top) + 10px);width:36px;height:36px;border-radius:50%;background:rgba(201,153,58,0.1);border:1px solid rgba(201,153,58,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;user-select:none;-webkit-user-select:none}
+.settings-app-id{display:flex;flex-direction:column;align-items:center;padding:0 20px 20px;border-bottom:1px solid rgba(201,153,58,0.1)}
+.settings-icon{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#2A1F06,#1A1209);border:1px solid rgba(201,153,58,0.35);display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:10px}
+.settings-name{font-family:'IM Fell English',serif;font-size:20px;background:linear-gradient(135deg,#E8C76A,#C9993A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:4px}
+.settings-ver{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(201,153,58,0.4);font-style:italic}
+.settings-section{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(201,153,58,0.38);padding:18px 20px 8px;font-style:italic}
+.app-row{display:flex;align-items:center;gap:14px;padding:11px 20px;cursor:pointer}
+.app-row:active{background:rgba(255,255,255,0.04)}
+.app-row-icon{width:46px;height:46px;border-radius:11px;flex-shrink:0;border:1px solid rgba(201,153,58,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(255,255,255,0.04)}
+.app-row-info{flex:1;min-width:0}
+.app-row-name{font-family:'IM Fell English',serif;font-size:15px;color:#F9F0DC;margin-bottom:2px}
+.app-row-desc{font-size:12px;color:rgba(245,232,192,0.45);font-style:italic}
+.app-row-arr{color:rgba(201,153,58,0.3);font-size:14px}
+.div-line{height:1px;background:rgba(201,153,58,0.08);margin:0 20px}
+.copyright-box{margin:20px 20px 0;background:rgba(255,255,255,0.03);border:1px solid rgba(201,153,58,0.1);border-radius:12px;padding:14px 16px;text-align:center}
+.copyright-box p{font-size:12px;color:rgba(245,232,192,0.38);line-height:1.7;font-style:italic}
+.copyright-box strong{color:rgba(201,153,58,0.6);font-weight:500}
+.claude-badge{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:5px 12px;border-radius:20px;background:rgba(100,80,200,0.12);border:1px solid rgba(100,80,200,0.3);font-size:11px;color:rgba(180,160,255,0.7)}
+.btn-settings-close{width:calc(100% - 40px);margin:16px 20px 0;padding:12px;background:rgba(201,153,58,0.1);border:1px solid rgba(201,153,58,0.25);border-radius:10px;color:#E8C76A;font-family:'Cormorant Garamond',serif;font-size:15px;letter-spacing:0.1em;cursor:pointer}
+.quiz-wrap{padding:16px 16px calc(var(--safe-bot) + 20px)}
+.quiz-start{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:20px 0}
+.quiz-start h2{font-family:'IM Fell English',serif;font-size:22px;color:#C9993A}
+.quiz-start p{font-size:13px;color:rgba(245,232,192,0.5);font-style:italic;line-height:1.6}
+.btn-gold{background:#C9993A;color:#1A1209;border:none;border-radius:10px;padding:12px 36px;font-size:15px;font-family:'Cormorant Garamond',serif;font-weight:600;cursor:pointer}
+.btn-gold-out{background:none;color:#E8C76A;border:1px solid rgba(201,153,58,0.4);border-radius:10px;padding:10px 30px;font-size:14px;font-family:'Cormorant Garamond',serif;cursor:pointer}
+.quiz-prog-wrap{margin-bottom:14px}
+.quiz-prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.quiz-prog-txt{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(201,153,58,0.4)}
+.quiz-score-live{font-size:12px;color:#C9993A;font-weight:600}
+.prog-bar{height:3px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:#C9993A;border-radius:2px;transition:width .4s}
+.quiz-card{background:rgba(255,255,255,0.025);border:1px solid rgba(201,153,58,0.15);border-radius:14px;padding:18px 16px;margin-bottom:12px}
+.quiz-portrait-wrap{display:flex;justify-content:center;margin-bottom:14px}
+.quiz-portrait{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.04);border:1.5px solid rgba(201,153,58,0.3);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:32px}
+.quiz-portrait img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.quiz-q{font-family:'IM Fell English',serif;font-size:16px;color:#F9F0DC;text-align:center;line-height:1.5;margin-bottom:16px;font-style:italic}
+.quiz-opts{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{padding:11px 14px;border-radius:10px;border:1px solid rgba(201,153,58,0.22);background:rgba(255,255,255,0.03);color:#F9F0DC;font-size:14px;font-family:'Cormorant Garamond',serif;cursor:pointer;text-align:left}
+.quiz-opt.correct{border-color:#1D9E75;background:rgba(29,158,117,0.15);color:#80E0A0}
+.quiz-opt.wrong{border-color:#C0392B;background:rgba(192,57,43,0.12);color:#F5A0A0}
+.quiz-opt.reveal{border-color:#1D9E75;background:rgba(29,158,117,0.06);color:#80E0A0;opacity:0.65}
+.quiz-feedback{font-size:12px;font-style:italic;color:rgba(245,232,192,0.5);text-align:center;min-height:18px;margin-top:10px}
+.quiz-feedback.ok{color:#80E0A0}
+.quiz-feedback.ko{color:#F5A0A0}
+.btn-next{display:none;width:100%;padding:11px;border-radius:10px;border:none;background:#C9993A;color:#1A1209;font-size:14px;font-family:'Cormorant Garamond',serif;font-weight:600;cursor:pointer}
+.btn-next.on{display:block}
+.quiz-results{display:none;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:20px 0}
+.quiz-results.on{display:flex}
+.quiz-score-big{font-family:'IM Fell English',serif;font-size:64px;color:#C9993A;line-height:1}
+.quiz-score-lbl{font-size:13px;color:rgba(245,232,192,0.5);font-style:italic}
+.quiz-verdict{font-size:16px;color:#F9F0DC;font-style:italic;line-height:1.5}
+.quiz-review{width:100%;display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.review-item{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,0.025);border:1px solid rgba(201,153,58,0.1);border-radius:10px;padding:10px 12px;text-align:left}
+.review-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.review-text{font-size:11px;color:rgba(245,232,192,0.5);line-height:1.5}
+.review-text strong{color:#F9F0DC;font-style:italic}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,153,58,0.22);border-radius:2px}
+</style>
+</head>
+<body>
+<div id="app-root">
+<header>
+  <button class="btn-lang" id="btnLang" onclick="toggleLang()">&#x1F1EB;&#x1F1F7;</button>
+  <button class="btn-gear" onclick="openSettings()">&#9881;</button>
+  <div class="header-top"><span class="fleur">&#x26DC;</span><h1 id="appTitle">7 Familles Royales</h1><span class="fleur">&#x26DC;</span></div>
+  <p class="subtitle" id="appSubtitle">Europe &middot; 7 dynasties &middot; 42 souverains</p>
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tab-list" onclick="switchTab('list')"><span id="tabListLbl">Souverains</span></button>
+    <button class="tab-btn" id="tab-quiz" onclick="switchTab('quiz')"><span id="tabQuizLbl">Quiz</span></button>
+  </div>
+  <div id="listCtrl">
+    <div class="search-wrap"><span class="search-icon">&#x1F50D;</span><input type="text" id="searchInput" placeholder="Rechercher&hellip;" autocomplete="off"></div>
+    <div class="filters" id="filters"></div>
+  </div>
+</header>
+<div id="scroll-area">
+  <div class="count-bar" id="countBar"></div>
+  <div id="list-screen"><div class="list-wrap" id="listWrap"></div></div>
+  <div id="quiz-screen" style="display:none">
+    <div class="quiz-wrap">
+      <div id="quizStart" class="quiz-start">
+        <div style="font-size:48px">&#x1F393;</div>
+        <h2 id="quizStartTitle">Quiz Royal</h2>
+        <p id="quizStartDesc">8 questions sur les 7 dynasties royales d&rsquo;Europe.</p>
+        <button class="btn-gold" onclick="startQuiz()" id="quizStartBtn">Commencer</button>
+      </div>
+      <div id="quizQ" style="display:none">
+        <div class="quiz-prog-wrap">
+          <div class="quiz-prog-top"><span class="quiz-prog-txt" id="quizProgTxt">1/8</span><span class="quiz-score-live" id="quizScoreLive">0 &#x2713;</span></div>
+          <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+        </div>
+        <div class="quiz-card">
+          <div class="quiz-portrait-wrap"><div class="quiz-portrait" id="quizPortrait">&#x1F451;</div></div>
+          <div class="quiz-q" id="quizQTxt"></div>
+          <div class="quiz-opts" id="quizOpts"></div>
+          <div class="quiz-feedback" id="quizFb"></div>
+        </div>
+        <button class="btn-next" id="btnNext" onclick="nextQ()"></button>
+      </div>
+      <div class="quiz-results" id="quizResults">
+        <div class="quiz-score-big" id="quizScoreBig"></div>
+        <div class="quiz-score-lbl" id="quizScoreLbl"></div>
+        <div class="quiz-verdict" id="quizVerdict"></div>
+        <div class="quiz-review" id="quizReview"></div>
+        <button class="btn-gold-out" id="btnRestart" onclick="startQuiz()">Rejouer</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="backdrop" id="modalBd" onclick="closeFiche(event)">
+  <div class="sheet"><div class="handle"></div><div id="ficheContent"></div></div>
+</div>
+
+<div class="backdrop" id="settingsBd" onclick="closeSettings(event)">
+  <div class="sheet">
+    <div class="handle" onclick="closeSettings()"></div>
+    <div class="settings-app-id">
+      <div class="settings-icon">&#x1F451;</div>
+      <div class="settings-name" id="sAppName">7 Familles Royales</div>
+      <div class="settings-ver" id="sVer">Version 1.0 &middot; 42 souverains</div>
+    </div>
+    <div class="settings-section" id="sSection">Nos autres applications</div>
+    <div class="app-row" onclick="openApp('id6761323546')"><div class="app-row-icon">&#x1F451;</div><div class="app-row-info"><div class="app-row-name">Rois de France</div><div class="app-row-desc" id="sDescRois">44 rois de Clovis &agrave; Louis-Philippe</div></div><div class="app-row-arr">&rsaquo;</div></div>
+    <div class="div-line"></div>
+    <div class="app-row" onclick="openApp('id6761424444')"><div class="app-row-icon">&#x1F3DB;</div><div class="app-row-info"><div class="app-row-name">Pr&eacute;sidents de la R&eacute;publique</div><div class="app-row-desc" id="sDescPres">De Thiers &agrave; nos jours</div></div><div class="app-row-arr">&rsaquo;</div></div>
+    <div class="div-line"></div>
+    <div class="app-row" onclick="openApp('id6760751055')"><div class="app-row-icon">&#x1FAA6;</div><div class="app-row-info"><div class="app-row-name">Cimeti&egrave;res Paris</div><div class="app-row-desc" id="sDescCim">Guide des grands cimeti&egrave;res parisiens</div></div><div class="app-row-arr">&rsaquo;</div></div>
+    <div class="div-line"></div>
+    <div class="app-row" onclick="openApp('id6760890465')"><div class="app-row-icon">&#x1F3DB;</div><div class="app-row-info"><div class="app-row-name">Mus&eacute;es de Paris</div><div class="app-row-desc" id="sDescMus">Les mus&eacute;es de la capitale</div></div><div class="app-row-arr">&rsaquo;</div></div>
+    <div class="div-line"></div>
+    <div class="app-row" onclick="openApp('id6760617965')"><div class="app-row-icon">&#x1F37D;</div><div class="app-row-info"><div class="app-row-name">MesRestaurants</div><div class="app-row-desc" id="sDescRest">Vos restaurants favoris</div></div><div class="app-row-arr">&rsaquo;</div></div>
+    <div class="copyright-box"><p id="sCopyright"><strong>&copy; 2025 Michel Garlandat</strong><br>Tous droits r&eacute;serv&eacute;s<br>Images&nbsp;: Wikimedia Commons (licence libre)</p><div class="claude-badge" id="sClaudeBadge">&#x2736;&nbsp; Con&ccedil;u avec Claude &middot; Anthropic</div></div>
+    <button class="btn-settings-close" id="sCloseBtn" onclick="closeSettings()">Fermer</button>
+  </div>
+</div>
+
+<script>
+var SOVS = [
+{id:1,n:"Henri IV",e:"le Grand",d:"Bourbons",co:"France",f:"\uD83C\uDDEB\uD83C\uDDF7",s:1589,t:1610,r:"Roi de France",w:"Henri_IV_(roi_de_France)",cap:"Paris",desc:"Premier roi Bourbon, il mit fin aux guerres de Religion par l'Edit de Nantes (1598). Populaire et pragmatique, il fut assassine par Ravaillac en 1610.",ev:"Edit de Nantes (1598) - Assassinat par Ravaillac (1610)"},
+{id:2,n:"Louis XIII",e:"le Juste",d:"Bourbons",co:"France",f:"\uD83C\uDDEB\uD83C\uDDF7",s:1610,t:1643,r:"Roi de France",w:"Louis_XIII",cap:"Paris",desc:"Son regne fut domine par le cardinal de Richelieu qui affirma le pouvoir absolu et orienta la France vers la guerre de Trente Ans.",ev:"Prise de La Rochelle (1628) - Richelieu Premier ministre"},
+{id:3,n:"Louis XIV",e:"le Roi-Soleil",d:"Bourbons",co:"France",f:"\uD83C\uDDEB\uD83C\uDDF7",s:1643,t:1715,r:"Roi de France",w:"Louis_XIV",cap:"Versailles",desc:"Le plus long regne de l'histoire de France (72 ans). Il incarna la monarchie absolue, construisit Versailles et revoqua l'Edit de Nantes en 1685.",ev:"Construction de Versailles - Revocation Edit de Nantes (1685)"},
+{id:4,n:"Louis XV",e:"le Bien-Aime",d:"Bourbons",co:"France",f:"\uD83C\uDDEB\uD83C\uDDF7",s:1715,t:1774,r:"Roi de France",w:"Louis_XV",cap:"Versailles",desc:"D'abord populaire, il perdit le Canada face aux Anglais mais acquit la Lorraine et la Corse.",ev:"Perte du Canada (1763) - Acquisition de la Corse (1768)"},
+{id:5,n:"Louis XVI",e:"",d:"Bourbons",co:"France",f:"\uD83C\uDDEB\uD83C\uDDF7",s:1774,t:1792,r:"Roi de France",w:"Louis_XVI",cap:"Versailles puis Paris",desc:"Monarque reformateur mais indecis, guillotine le 21 janvier 1793 apres l'eclatement de la Revolution francaise.",ev:"Revolution francaise (1789) - Execution (21 jan. 1793)"},
+{id:6,n:"Marie-Antoinette",e:"Reine de France",d:"Bourbons",co:"France",f:"\uD83C\uDDEB\uD83C\uDDF7",s:1774,t:1792,r:"Reine de France",w:"Marie-Antoinette_d'Autriche",cap:"Versailles",desc:"Archiduchesse d'Autriche devenue reine de France a 19 ans, elle fut guillotinee le 16 octobre 1793.",ev:"Fuite a Varennes (1791) - Execution (16 oct. 1793)"},
+{id:7,n:"Charles Quint",e:"Maitre du monde",d:"Habsbourg",co:"Autriche",f:"\uD83C\uDDE6\uD83C\uDDF9",s:1519,t:1556,r:"Empereur",w:"Charles_Quint",cap:"Madrid / Vienne",desc:"Maitre d'un empire sur lequel le soleil ne se couchait jamais, il regna sur l'Espagne, les Pays-Bas, l'Italie et les Ameriques.",ev:"Sac de Rome (1527) - Abdication (1556)"},
+{id:8,n:"Marie-Therese",e:"la Grande Imperatrice",d:"Habsbourg",co:"Autriche",f:"\uD83C\uDDE6\uD83C\uDDF9",s:1740,t:1780,r:"Imperatrice",w:"Marie-Thérèse_d'Autriche_(1717-1780)",cap:"Vienne",desc:"Seule femme a avoir regne sur l'empire des Habsbourg, elle modernisa l'Etat et survequt a la guerre de Succession d'Autriche.",ev:"Guerre de Succession d'Autriche (1740) - Reformes (1748-1780)"},
+{id:9,n:"Joseph II",e:"le Revolutionnaire",d:"Habsbourg",co:"Autriche",f:"\uD83C\uDDE6\uD83C\uDDF9",s:1765,t:1790,r:"Empereur",w:"Joseph_II_(empereur_du_Saint-Empire)",cap:"Vienne",desc:"Monarque eclaire, il abolit le servage et instaura la tolerance religieuse. Ses reformes trop rapides provoquerent de nombreuses resistances.",ev:"Edit de tolerance (1781) - Abolition du servage (1781)"},
+{id:10,n:"Leopold II",e:"",d:"Habsbourg",co:"Autriche",f:"\uD83C\uDDE6\uD83C\uDDF9",s:1790,t:1792,r:"Empereur",w:"Léopold_II_(empereur_du_Saint-Empire)",cap:"Vienne",desc:"Frere de Joseph II, il tempera les reformes trop radicales de son predecesseur. Son court regne fut domine par la Revolution francaise.",ev:"Declaration de Pillnitz (1791)"},
+{id:11,n:"Francois-Joseph Ier",e:"le Vieux Monarque",d:"Habsbourg",co:"Autriche",f:"\uD83C\uDDE6\uD83C\uDDF9",s:1848,t:1916,r:"Empereur",w:"François-Joseph_Ier",cap:"Vienne",desc:"Avec 68 ans de regne, l'un des souverains les plus longs de l'histoire europeenne. Il vit son empire se desintegrer.",ev:"Defaite de Sadowa (1866) - Assassinat de Sissi (1898) - WWI"},
+{id:12,n:"Sissi",e:"l'Imperatrice rebelle",d:"Habsbourg",co:"Autriche",f:"\uD83C\uDDE6\uD83C\uDDF9",s:1854,t:1898,r:"Imperatrice",w:"Élisabeth_de_Wittelsbach",cap:"Vienne",desc:"Epouse de Francois-Joseph, celebree pour sa beaute et son independance d'esprit. Elle fut assassinee a Geneve par un anarchiste.",ev:"Mort de Rodolphe a Mayerling (1889) - Assassinat a Geneve (1898)"},
+{id:13,n:"Victoria",e:"Reine de l'Empire",d:"Windsor",co:"Royaume-Uni",f:"\uD83C\uDDEC\uD83C\uDDE7",s:1837,t:1901,r:"Reine",w:"Victoria_(reine)",cap:"Londres",desc:"Reine pendant 63 ans, elle donna son nom a une ere de prosperite et d'expansion coloniale.",ev:"Exposition universelle de 1851 - Imperatrice des Indes (1876)"},
+{id:14,n:"Edouard VII",e:"le Pacificateur",d:"Windsor",co:"Royaume-Uni",f:"\uD83C\uDDEC\uD83C\uDDE7",s:1901,t:1910,r:"Roi",w:"Édouard_VII",cap:"Londres",desc:"Fils de Victoria, surnomme l'Oncle de l'Europe pour ses liens familiaux avec toutes les cours royales.",ev:"Entente cordiale franco-britannique (1904)"},
+{id:15,n:"George V",e:"le Roi-Soldat",d:"Windsor",co:"Royaume-Uni",f:"\uD83C\uDDEC\uD83C\uDDE7",s:1910,t:1936,r:"Roi",w:"George_V",cap:"Londres",desc:"Il renomma la maison royale Windsor en 1917 pour effacer les origines allemandes Saxe-Cobourg-Gotha.",ev:"Creation de la maison Windsor (1917) - Statut de Westminster (1931)"},
+{id:16,n:"George VI",e:"le Roi courageux",d:"Windsor",co:"Royaume-Uni",f:"\uD83C\uDDEC\uD83C\uDDE7",s:1936,t:1952,r:"Roi",w:"George_VI",cap:"Londres",desc:"Monte sur le trone apres l'abdication de son frere Edouard VIII, il resta a Londres pendant le Blitz.",ev:"Deuxieme Guerre mondiale - Independence de l'Inde (1947)"},
+{id:17,n:"Edouard VIII",e:"le Roi abdicataire",d:"Windsor",co:"Royaume-Uni",f:"\uD83C\uDDEC\uD83C\uDDE7",s:1936,t:1936,r:"Roi",w:"Édouard_VIII",cap:"Londres",desc:"Il abdiqua apres seulement 325 jours de regne pour epouser Wallis Simpson, une Americaine divorcee.",ev:"Abdication (decembre 1936)"},
+{id:18,n:"Elisabeth II",e:"la Reine du siecle",d:"Windsor",co:"Royaume-Uni",f:"\uD83C\uDDEC\uD83C\uDDE7",s:1952,t:2022,r:"Reine",w:"Élisabeth_II",cap:"Londres",desc:"Avec 70 ans de regne, la monarque la plus longtemps regnante de l'histoire britannique.",ev:"Couronnement (1953) - Jubile de platine (2022)"},
+{id:19,n:"Pierre le Grand",e:"le Grand",d:"Romanov",co:"Russie",f:"\uD83C\uDDF7\uD83C\uDDFA",s:1682,t:1725,r:"Tsar",w:"Pierre_Ier_le_Grand",cap:"Saint-Petersbourg",desc:"Tsar reformateur, il modernisa la Russie sur le modele occidental et fonda Saint-Petersbourg.",ev:"Victoire de Poltava (1709) - Fondation de Saint-Petersbourg (1703)"},
+{id:20,n:"Catherine II",e:"la Grande",d:"Romanov",co:"Russie",f:"\uD83C\uDDF7\uD83C\uDDFA",s:1762,t:1796,r:"Tsarine",w:"Catherine_II",cap:"Saint-Petersbourg",desc:"Nee princesse allemande, elle s'empara du pouvoir par un coup d'Etat et agrandit considerablement la Russie.",ev:"Revolte de Pougatchev (1773) - Partages de la Pologne"},
+{id:21,n:"Alexandre Ier",e:"le Liberateur",d:"Romanov",co:"Russie",f:"\uD83C\uDDF7\uD83C\uDDFA",s:1801,t:1825,r:"Tsar",w:"Alexandre_Ier_(empereur_de_Russie)",cap:"Saint-Petersbourg",desc:"Il vainquit Napoleon en resistant a l'invasion de 1812 et entra triomphalement a Paris en 1814.",ev:"Invasion napoleonienne (1812) - Entree dans Paris (1814)"},
+{id:22,n:"Alexandre II",e:"le Tsar liberateur",d:"Romanov",co:"Russie",f:"\uD83C\uDDF7\uD83C\uDDFA",s:1855,t:1881,r:"Tsar",w:"Alexandre_II_(empereur_de_Russie)",cap:"Saint-Petersbourg",desc:"Il abolit le servage en 1861, liberant 23 millions de serfs. Il fut assassine par des revolutionnaires nihilistes.",ev:"Abolition du servage (1861) - Assassinat (1881)"},
+{id:23,n:"Alexandre III",e:"le Pacificateur",d:"Romanov",co:"Russie",f:"\uD83C\uDDF7\uD83C\uDDFA",s:1881,t:1894,r:"Tsar",w:"Alexandre_III_(empereur_de_Russie)",cap:"Saint-Petersbourg",desc:"Conservateur et nationaliste, il regna d'une main de fer et noua l'alliance franco-russe.",ev:"Alliance franco-russe (1892) - Construction du Transsiberien (1891)"},
+{id:24,n:"Nicolas II",e:"le Tsar martyr",d:"Romanov",co:"Russie",f:"\uD83C\uDDF7\uD83C\uDDFA",s:1894,t:1917,r:"Tsar",w:"Nicolas_II",cap:"Saint-Petersbourg",desc:"Dernier tsar de Russie, renverse en 1917 et fusille avec sa famille a Iekaterinbourg.",ev:"Revolution de 1905 - Revolution bolchevique (1917) - Fusillade (1918)"},
+{id:25,n:"Frederic Ier",e:"Roi de Prusse",d:"Hohenzollern",co:"Prusse",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1701,t:1713,r:"Roi de Prusse",w:"Frédéric_Ier_(roi_de_Prusse)",cap:"Berlin",desc:"Premier roi de Prusse, il obtint la dignite royale en soutenant l'Autriche dans la guerre de Succession d'Espagne.",ev:"Couronnement royal (1701) - Fondation de l'Academie des Sciences"},
+{id:26,n:"Frederic II",e:"le Grand",d:"Hohenzollern",co:"Prusse",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1740,t:1786,r:"Roi de Prusse",w:"Frédéric_II_(roi_de_Prusse)",cap:"Berlin / Potsdam",desc:"Philosophe et stratege militaire de genie, il fit de la Prusse une grande puissance. Ami de Voltaire, il incarna le despotisme eclaire.",ev:"Guerre de Succession d'Autriche - Guerre de Sept Ans (1756-1763)"},
+{id:27,n:"Frederic-Guillaume III",e:"",d:"Hohenzollern",co:"Prusse",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1797,t:1840,r:"Roi de Prusse",w:"Frédéric-Guillaume_III",cap:"Berlin",desc:"Son regne fut marque par les guerres napoleoniennes et la renaissance nationale prussienne.",ev:"Defaite d'Iena (1806) - Guerres de liberation (1813-1815)"},
+{id:28,n:"Guillaume Ier",e:"le Kaiser fondateur",d:"Hohenzollern",co:"Allemagne",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1871,t:1888,r:"Kaiser",w:"Guillaume_Ier_(empereur_allemand)",cap:"Berlin",desc:"Proclame Kaiser a Versailles en 1871 apres la victoire sur la France, il regna sous la tutelle de Bismarck.",ev:"Proclamation du Reich a Versailles (1871)"},
+{id:29,n:"Frederic III",e:"Kaiser des 99 jours",d:"Hohenzollern",co:"Allemagne",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1888,t:1888,r:"Kaiser",w:"Frédéric_III_(empereur_allemand)",cap:"Berlin",desc:"Liberal et reformateur, il ne regna que 99 jours, emporte par un cancer de la gorge.",ev:"Regne de 99 jours (1888)"},
+{id:30,n:"Guillaume II",e:"le Kaiser guerrier",d:"Hohenzollern",co:"Allemagne",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1888,t:1918,r:"Kaiser",w:"Guillaume_II_(empereur_allemand)",cap:"Berlin",desc:"Son regne impulsif contribua a l'embrasement de l'Europe en 1914. Il abdiqua et s'exila aux Pays-Bas.",ev:"Premiere Guerre mondiale (1914-1918) - Abdication (novembre 1918)"},
+{id:31,n:"Maximilien Ier",e:"le Fondateur",d:"Wittelsbach",co:"Baviere",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1597,t:1651,r:"Electeur de Baviere",w:"Maximilien_Ier_(électeur_de_Bavière)",cap:"Munich",desc:"Il fonda la Ligue catholique en 1609 et joua un role central dans la guerre de Trente Ans.",ev:"Fondation de la Ligue catholique (1609) - Guerre de Trente Ans"},
+{id:32,n:"Maximilien II",e:"le Roi eclaire",d:"Wittelsbach",co:"Baviere",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1848,t:1864,r:"Roi de Baviere",w:"Maximilien_II_(roi_de_Bavière)",cap:"Munich",desc:"Souverain liberal et cultive, il soutint les arts et les sciences et chercha a maintenir l'independance bavaroise.",ev:"Revolution de 1848 - Construction de la Maximilianstrasse"},
+{id:33,n:"Louis Ier",e:"le Mecene",d:"Wittelsbach",co:"Baviere",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1825,t:1848,r:"Roi de Baviere",w:"Louis_Ier_(roi_de_Bavière)",cap:"Munich",desc:"Grand amateur d'art neoclassique, il transforma Munich en capitale culturelle. Sa liaison avec Lola Montes provoqua une revolution.",ev:"Embellissement de Munich - Revolution de 1848"},
+{id:34,n:"Louis II",e:"le Roi fou",d:"Wittelsbach",co:"Baviere",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1864,t:1886,r:"Roi de Baviere",w:"Louis_II_(roi_de_Bavière)",cap:"Munich",desc:"Surnomme le Roi Conte de Fees, il construisit les chateaux de Neuschwanstein et Herrenchiemsee. Il mourut mysterieusement noye.",ev:"Construction de Neuschwanstein (1869) - Mort mysterieuse (1886)"},
+{id:35,n:"Othon Ier",e:"",d:"Wittelsbach",co:"Baviere",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1886,t:1913,r:"Roi de Baviere",w:"Othon_Ier_(roi_de_Bavière)",cap:"Munich",desc:"Fils de Maximilien II, il regna sous regence en raison de sa maladie mentale tout au long de son regne.",ev:"Regne sous regence (1886-1913)"},
+{id:36,n:"Louis IV",e:"le Bavarois",d:"Wittelsbach",co:"Baviere",f:"\uD83C\uDDE9\uD83C\uDDEA",s:1328,t:1347,r:"Emp. germanique",w:"Louis_IV_(empereur_du_Saint-Empire)",cap:"Munich",desc:"Duc de Baviere et empereur du Saint-Empire, il entra en conflit avec la papaute et soutint les franciscains spirituels.",ev:"Conflit avec le pape Jean XXII - Couronnement imperial (1328)"},
+{id:37,n:"Emmanuel-Philibert",e:"Tete de Fer",d:"Savoie",co:"Savoie",f:"\uD83C\uDDEE\uD83C\uDDF9",s:1553,t:1580,r:"Duc de Savoie",w:"Emmanuel-Philibert_de_Savoie_(1528-1580)",cap:"Turin",desc:"Sa victoire a Saint-Quentin (1557) lui permit de recuperer ses Etats. Il transfera la capitale de Chambery a Turin.",ev:"Victoire de Saint-Quentin (1557) - Transfert capitale a Turin"},
+{id:38,n:"Charles-Emmanuel Ier",e:"le Grand",d:"Savoie",co:"Savoie",f:"\uD83C\uDDEE\uD83C\uDDF9",s:1580,t:1630,r:"Duc de Savoie",w:"Charles-Emmanuel_Ier",cap:"Turin",desc:"Duc ambitieux, il tenta d'agrandir ses Etats en jouant des rivalites franco-espagnoles.",ev:"Guerre pour le marquisat de Saluces - Guerre de Succession de Mantoue"},
+{id:39,n:"Victor-Amedee II",e:"le Roi diplomate",d:"Savoie",co:"Savoie",f:"\uD83C\uDDEE\uD83C\uDDF9",s:1675,t:1730,r:"Roi de Sardaigne",w:"Victor-Amédée_II",cap:"Turin",desc:"Politique habile, il obtint successivement la Sicile puis la Sardaigne et le titre royal.",ev:"Paix d'Utrecht (1713) - Roi de Sicile puis Sardaigne"},
+{id:40,n:"Victor-Emmanuel II",e:"Pere de la Patrie",d:"Savoie",co:"Italie",f:"\uD83C\uDDEE\uD83C\uDDF9",s:1861,t:1878,r:"Roi d'Italie",w:"Victor-Emmanuel_II",cap:"Turin puis Rome",desc:"Premier roi d'Italie unifiee, il soutint Cavour et Garibaldi dans le Risorgimento.",ev:"Unification italienne (1861) - Prise de Rome (1870)"},
+{id:41,n:"Humbert Ier",e:"le Bon Roi",d:"Savoie",co:"Italie",f:"\uD83C\uDDEE\uD83C\uDDF9",s:1878,t:1900,r:"Roi d'Italie",w:"Humbert_Ier_(roi_d'Italie)",cap:"Rome",desc:"Populaire pour sa bravoure lors des epidemies, il fut assassine par l'anarchiste Gaetano Bresci a Monza en 1900.",ev:"Triple Alliance (1882) - Assassinat a Monza (1900)"},
+{id:42,n:"Victor-Emmanuel III",e:"le Petit Roi",d:"Savoie",co:"Italie",f:"\uD83C\uDDEE\uD83C\uDDF9",s:1900,t:1946,r:"Roi d'Italie",w:"Victor-Emmanuel_III",cap:"Rome",desc:"Son regne traversa les deux guerres mondiales. Il permit la montee de Mussolini et abdiqua en 1946.",ev:"Marche sur Rome (1922) - Armistice (1943) - Abdication (1946)"}
+];
+
+var DC={Bourbons:{bg:"rgba(26,107,63,0.15)",bo:"rgba(26,107,63,0.4)",tx:"#80E0A0"},Habsbourg:{bg:"rgba(139,26,26,0.15)",bo:"rgba(139,26,26,0.4)",tx:"#F5A0A0"},Windsor:{bg:"rgba(26,63,107,0.15)",bo:"rgba(26,63,107,0.4)",tx:"#A0C4F5"},Romanov:{bg:"rgba(107,63,160,0.15)",bo:"rgba(107,63,160,0.4)",tx:"#C9A0F5"},Hohenzollern:{bg:"rgba(90,58,16,0.15)",bo:"rgba(140,100,40,0.4)",tx:"#E0C070"},Wittelsbach:{bg:"rgba(10,74,74,0.15)",bo:"rgba(20,120,120,0.4)",tx:"#80D8D8"},Savoie:{bg:"rgba(107,74,26,0.15)",bo:"rgba(160,110,40,0.4)",tx:"#E0B070"}};
+
+// ── TRADUCTIONS ──
+var I18N={
+fr:{
+  title:"7 Familles Royales",subtitle:"Europe \u00b7 7 dynasties \u00b7 42 souverains",
+  tabList:"Souverains",tabQuiz:"Quiz",
+  searchPh:"Rechercher\u2026",filterAll:"Tous",
+  countAll:" souverains",countRes:" r\u00e9sultat",countRess:" r\u00e9sultats",
+  noResult:"Aucun souverain trouv\u00e9",
+  statStart:"D\u00e9but de r\u00e8gne",statEnd:"Fin de r\u00e8gne",statDur:"Dur\u00e9e",statTitle:"Titre",statCap:"Capitale",statEv:"Ev\u00e9nements cl\u00e9s",
+  statYear:function(n){return n+" an"+(n>1?"s":"");},
+  closeBtn:"\u26DC Fermer \u26DC",
+  settingsSection:"Nos autres applications",settingsClose:"Fermer",
+  qTitle:"Quiz Royal",qDesc:"8 questions sur les 7 dynasties royales d\u2019Europe.",qStart:"Commencer",
+  qNext:"Question suivante",qEnd:"Voir les r\u00e9sultats",qReplay:"Rejouer",
+  qOk:"\u2713 Exact\u00a0! ",qKo:"\u2717 Non. Bonne r\u00e9ponse\u00a0: ",
+  qScoreLbl:function(s,n){return s+" bonne"+(s>1?"s":"")+" r\u00e9ponse"+(s>1?"s":"")+" sur "+n;},
+  qVerdicts:["Il faut r\u00e9viser\u00a0!","Pas mal...","Bien\u00a0!","Excellent\u00a0!","Parfait\u00a0!"],
+  qYourAns:"Votre r\u00e9ponse\u00a0: ",qGoodAns:"Bonne r\u00e9ponse\u00a0: ",
+  // Questions
+  q1:"Qui est ce souverain\u00a0?",
+  q2:function(n){return "A quelle famille appartient "+n+"\u00a0?";},
+  q3:function(n){return "Dans quel pays a r\u00e9gn\u00e9 "+n+"\u00a0?";},
+  q4:function(n){return "Quel \u00e9tait le titre de "+n+"\u00a0?";},
+  q5:function(d){return "Lequel appartient \u00e0 la famille "+d+"\u00a0?";},
+  q6:function(d){return "Lequel n\u2019appartient PAS \u00e0 la famille "+d+"\u00a0?";},
+  q7:function(n){return "Lequel \u00e9tait dans la m\u00eame famille que "+n+"\u00a0?";},
+  countries:["France","Autriche","Royaume-Uni","Russie","Prusse","Allemagne","Baviere","Savoie","Italie"]
+},
+en:{
+  title:"7 Royal Families",subtitle:"Europe \u00b7 7 dynasties \u00b7 42 sovereigns",
+  tabList:"Sovereigns",tabQuiz:"Quiz",
+  searchPh:"Search\u2026",filterAll:"All",
+  countAll:" sovereigns",countRes:" result",countRess:" results",
+  noResult:"No sovereign found",
+  statStart:"Reign start",statEnd:"Reign end",statDur:"Duration",statTitle:"Title",statCap:"Capital",statEv:"Key events",
+  statYear:function(n){return n+" year"+(n>1?"s":"");},
+  closeBtn:"\u26DC Close \u26DC",
+  settingsSection:"Our other apps",settingsClose:"Close",
+  qTitle:"Royal Quiz",qDesc:"8 questions on the 7 royal dynasties of Europe.",qStart:"Start",
+  qNext:"Next question",qEnd:"See results",qReplay:"Play again",
+  qOk:"\u2713 Correct! ",qKo:"\u2717 Wrong. Right answer: ",
+  qScoreLbl:function(s,n){return s+" correct answer"+(s>1?"s":"")+" out of "+n;},
+  qVerdicts:["Keep studying!","Not bad...","Good!","Excellent!","Perfect!"],
+  qYourAns:"Your answer: ",qGoodAns:"Right answer: ",
+  q1:"Who is this sovereign?",
+  q2:function(n){return "Which family does "+n+" belong to?";},
+  q3:function(n){return "In which country did "+n+" reign?";},
+  q4:function(n){return "What was "+n+"'s title?";},
+  q5:function(d){return "Which one belongs to the "+d+" family?";},
+  q6:function(d){return "Which one does NOT belong to the "+d+" family?";},
+  q7:function(n){return "Which one was in the same family as "+n+"?";},
+  countries:["France","Austria","United Kingdom","Russia","Prussia","Germany","Bavaria","Savoy","Italy"]
+}};
+
+// Wiki cache
+var CPFX="f7_";var CTTL=604800000;
+function gcache(k){try{var r=localStorage.getItem(CPFX+k);if(!r)return null;var o=JSON.parse(r);if(Date.now()-o.ts>CTTL){localStorage.removeItem(CPFX+k);return null;}return o.u;}catch(x){return null;}}
+function scache(k,u){try{localStorage.setItem(CPFX+k,JSON.stringify({u:u,ts:Date.now()}));}catch(x){}}
+function wikiImg(w,cb){var c=gcache(w);if(c){cb(c);return;}fetch("https://fr.wikipedia.org/api/rest_v1/page/summary/"+encodeURIComponent(w),{headers:{"Accept":"application/json"}}).then(function(r){return r.json();}).then(function(d){var u=(d.thumbnail&&d.thumbnail.source)||(d.originalimage&&d.originalimage.source)||null;if(u)scache(w,u);cb(u);}).catch(function(){cb(null);});}
+function loadThumb(w,img){wikiImg(w,function(u){if(u&&img){img.src=u;img.onload=function(){img.className="on";};img.onerror=function(){img.style.display="none";};}});}
+
+var lang="fr",tab="list",dynFilter="Tous",q="";
+function L(){return I18N[lang];}
+
+function applyLang(){
+  var l=L();
+  document.getElementById("appTitle").textContent=l.title;
+  document.getElementById("appSubtitle").textContent=l.subtitle;
+  document.getElementById("tabListLbl").textContent=l.tabList;
+  document.getElementById("tabQuizLbl").textContent=l.tabQuiz;
+  document.getElementById("searchInput").placeholder=l.searchPh;
+  document.getElementById("quizStartTitle").textContent=l.qTitle;
+  document.getElementById("quizStartDesc").textContent=l.qDesc;
+  document.getElementById("quizStartBtn").textContent=l.qStart;
+  document.getElementById("btnRestart").textContent=l.qReplay;
+  document.getElementById("sSection").textContent=l.settingsSection;
+  document.getElementById("sCloseBtn").textContent=l.settingsClose;
+  dynFilter=l.filterAll;
+  buildFilters();renderList();
+}
+
+function switchTab(t){
+  tab=t;
+  document.getElementById("list-screen").style.display=t==="list"?"block":"none";
+  document.getElementById("quiz-screen").style.display=t==="quiz"?"block":"none";
+  document.getElementById("countBar").style.display=t==="list"?"block":"none";
+  document.getElementById("listCtrl").style.display=t==="list"?"block":"none";
+  document.getElementById("tab-list").className="tab-btn"+(t==="list"?" active":"");
+  document.getElementById("tab-quiz").className="tab-btn"+(t==="quiz"?" active":"");
+}
+
+function buildFilters(){
+  var l=L();
+  var dyns=[l.filterAll,"Bourbons","Habsbourg","Windsor","Romanov","Hohenzollern","Wittelsbach","Savoie"];
+  var c=document.getElementById("filters");c.innerHTML="";
+  dyns.forEach(function(d){
+    var b=document.createElement("button");
+    var cls=d===l.filterAll?"pill pill-all":"pill pill-"+d;
+    if(d===dynFilter)cls+=" on";
+    b.className=cls;b.textContent=d;
+    b.onclick=function(){dynFilter=d;buildFilters();renderList();};
+    c.appendChild(b);
+  });
+}
+
+function norm(s){return(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+
+function renderList(){
+  var l=L();
+  var all=(dynFilter===l.filterAll);
+  var filtered=SOVS.filter(function(k){
+    if(!all&&k.d!==dynFilter)return false;
+    if(q){var qn=norm(q);return norm(k.n+" "+k.e).indexOf(qn)>=0;}
+    return true;
+  });
+  var cb=document.getElementById("countBar");
+  if(filtered.length===SOVS.length) cb.textContent=filtered.length+l.countAll;
+  else cb.textContent=filtered.length+(filtered.length>1?l.countRess:l.countRes);
+  var wrap=document.getElementById("listWrap");wrap.innerHTML="";
+  if(!filtered.length){wrap.innerHTML='<div class="empty">'+l.noResult+'</div>';return;}
+  var showGroups=all&&!q;
+  if(showGroups){
+    var groups={};
+    filtered.forEach(function(k){if(!groups[k.d])groups[k.d]=[];groups[k.d].push(k);});
+    Object.keys(groups).forEach(function(dyn){
+      var sec=document.createElement("div");
+      var hdr=document.createElement("div");hdr.className="dyn-header";
+      hdr.innerHTML='<div class="dyn-line"></div><span class="dyn-label">'+dyn+'</span><div class="dyn-line"></div>';
+      sec.appendChild(hdr);
+      groups[dyn].forEach(function(k){sec.appendChild(makeCard(k));});
+      wrap.appendChild(sec);
+    });
+  } else {
+    filtered.forEach(function(k){wrap.appendChild(makeCard(k));});
+  }
+}
+
+function makeCard(k){
+  var card=document.createElement("div");card.className="card";
+  var bar=document.createElement("div");bar.className="card-bar bar-"+k.d;card.appendChild(bar);
+  var thumb=document.createElement("div");thumb.className="thumb";
+  var ph=document.createElement("span");ph.className="thumb-ph";ph.textContent="\uD83D\uDC51";thumb.appendChild(ph);
+  var img=document.createElement("img");img.alt=k.n;thumb.appendChild(img);
+  loadThumb(k.w,img);card.appendChild(thumb);
+  var info=document.createElement("div");info.className="card-info";
+  var country=document.createElement("div");country.className="card-country";country.textContent=k.f+" "+k.co;info.appendChild(country);
+  var name=document.createElement("div");name.className="card-name";name.textContent=k.n;info.appendChild(name);
+  if(k.e){var ep=document.createElement("div");ep.className="card-epithet";ep.textContent=k.e;info.appendChild(ep);}
+  var dur=k.t-k.s;
+  var reign=document.createElement("div");reign.className="card-reign";
+  reign.innerHTML='<span>'+k.s+' \u2013 '+k.t+'</span> \u00b7 '+L().statYear(dur);info.appendChild(reign);
+  card.appendChild(info);
+  var arr=document.createElement("div");arr.className="card-arr";arr.textContent="\u203a";card.appendChild(arr);
+  card.onclick=function(){openFiche(k);};
+  return card;
+}
+
+function openFiche(k){
+  var l=L();var dc=DC[k.d]||DC.Bourbons;var dur=k.t-k.s;
+  var fc=document.getElementById("ficheContent");fc.innerHTML="";
+  var iw=document.createElement("div");iw.className="modal-img";
+  var iph=document.createElement("div");iph.className="modal-img-ph";iph.textContent="\uD83D\uDC51";iw.appendChild(iph);
+  var isw=document.createElement("div");isw.className="modal-spin-wrap";isw.id="mSpin";var sp=document.createElement("div");sp.className="spin";isw.appendChild(sp);iw.appendChild(isw);
+  var mimg=document.createElement("img");mimg.id="mImg";mimg.alt=k.n;iw.appendChild(mimg);
+  fc.appendChild(iw);
+  var body=document.createElement("div");body.className="modal-body";
+  var badge=document.createElement("div");badge.className="modal-badge";
+  badge.style.background=dc.bg;badge.style.borderColor=dc.bo;badge.style.color=dc.tx;
+  badge.textContent=k.d+" \u00b7 "+k.f+" "+k.co;body.appendChild(badge);
+  var mname=document.createElement("div");mname.className="modal-name";mname.textContent=k.n;body.appendChild(mname);
+  if(k.e){var mep=document.createElement("div");mep.className="modal-epithet";mep.textContent=k.e;body.appendChild(mep);}
+  else{var msp=document.createElement("div");msp.className="modal-spacer";body.appendChild(msp);}
+  var stats=document.createElement("div");stats.className="modal-stats";
+  function mkStat(lbl,val,sm,full){
+    var s=document.createElement("div");s.className="stat"+(full?" stat-full":"");
+    var sl=document.createElement("div");sl.className="stat-lbl";sl.textContent=lbl;s.appendChild(sl);
+    var sv=document.createElement("div");sv.className=sm?"stat-val-sm":"stat-val";sv.textContent=val;s.appendChild(sv);
+    return s;
+  }
+  stats.appendChild(mkStat(l.statStart,k.s,false,false));
+  stats.appendChild(mkStat(l.statEnd,k.t,false,false));
+  stats.appendChild(mkStat(l.statDur,l.statYear(dur),false,false));
+  stats.appendChild(mkStat(l.statTitle,k.r,true,false));
+  stats.appendChild(mkStat(l.statCap,k.cap,true,true));
+  body.appendChild(stats);
+  if(k.desc){var md=document.createElement("p");md.className="modal-desc";md.textContent=k.desc;body.appendChild(md);}
+  if(k.ev){var me=document.createElement("div");me.className="stat modal-events";var ml=document.createElement("div");ml.className="stat-lbl";ml.textContent=l.statEv;me.appendChild(ml);var mv=document.createElement("div");mv.className="stat-val-sm";mv.textContent=k.ev;me.appendChild(mv);body.appendChild(me);}
+  var bc=document.createElement("button");bc.className="btn-close";bc.textContent=l.closeBtn;bc.onclick=function(){closeFiche();};body.appendChild(bc);
+  fc.appendChild(body);
+  wikiImg(k.w,function(u){
+    var s=document.getElementById("mSpin");if(s)s.style.display="none";
+    var i=document.getElementById("mImg");
+    if(u&&i){i.src=u;i.onload=function(){i.className="on";iph.style.display="none";};i.onerror=function(){i.style.display="none";};}
+  });
+  document.getElementById("modalBd").className="backdrop on";
+  document.body.style.overflow="hidden";
+}
+function closeFiche(e){if(e&&e.target!==document.getElementById("modalBd"))return;document.getElementById("modalBd").className="backdrop";document.body.style.overflow="";}
+
+function openSettings(){document.getElementById("settingsBd").className="backdrop on";document.body.style.overflow="hidden";}
+function closeSettings(e){if(e&&e.target!==document.getElementById("settingsBd"))return;document.getElementById("settingsBd").className="backdrop";document.body.style.overflow="";}
+function openApp(id){window.open("https://apps.apple.com/fr/app/"+id,"_system");}
+
+function toggleLang(){
+  lang=lang==="fr"?"en":"fr";
+  document.getElementById("btnLang").textContent=lang==="fr"?"\uD83C\uDDEB\uD83C\uDDF7":"\uD83C\uDDEC\uD83C\uDDE7";
+  applyLang();
+}
+
+// ── QUIZ ──
+var QN=8,qqs=[],qi=0,qs=0,qa=false,qh=[];
+function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function pick(a,n){return shuffle(a).slice(0,n);}
+
+function genQs(){
+  var l=L();
+  var pool=shuffle(SOVS);
+  var dyns=shuffle(["Bourbons","Habsbourg","Windsor","Romanov","Hohenzollern","Wittelsbach","Savoie"]);
+  var roles=["Roi de France","Reine de France","Empereur","Imperatrice","Reine","Roi","Tsar","Tsarine","Roi de Prusse","Kaiser","Electeur de Baviere","Roi de Baviere","Roi d'Italie","Duc de Savoie","Roi de Sardaigne","Emp. germanique"];
+  var countries=l.countries;
+  var qs=[];
+  // Q1: portrait -> nom
+  (function(){var s=pool[0];var w=pick(SOVS.filter(function(x){return x.id!==s.id;}),3);var opts=shuffle([s].concat(w));qs.push({wiki:s.w,q:l.q1,opts:opts.map(function(x){return{l:x.n,v:x.id};}),ans:s.id,exp:s.n+(s.e?" - "+s.e:"")});})();
+  // Q2: famille
+  (function(){var s=pool[1];var wd=pick(dyns.filter(function(x){return x!==s.d;}),3);var opts=shuffle([s.d].concat(wd));qs.push({wiki:s.w,q:l.q2(s.n),opts:opts.map(function(x){return{l:x,v:x};}),ans:s.d,exp:s.n+" - "+s.d});})();
+  // Q3: pays
+  (function(){var s=pool[2];var wc=pick(countries.filter(function(x){return x!==s.co;}),3);var opts=shuffle([s.co].concat(wc));qs.push({wiki:null,q:l.q3(s.n),opts:opts.map(function(x){return{l:x,v:x};}),ans:s.co,exp:s.n+" - "+s.co});})();
+  // Q4: titre
+  (function(){var s=pool[3];var wr=pick(roles.filter(function(x){return x!==s.r;}),3);var opts=shuffle([s.r].concat(wr));qs.push({wiki:s.w,q:l.q4(s.n),opts:opts.map(function(x){return{l:x,v:x};}),ans:s.r,exp:s.n+" - "+s.r});})();
+  // Q5: qui appartient a famille X
+  (function(){var d=dyns[0];var c=pick(SOVS.filter(function(x){return x.d===d;}),1)[0];var w=pick(SOVS.filter(function(x){return x.d!==d;}),3);var opts=shuffle([c].concat(w));qs.push({wiki:null,q:l.q5(d),opts:opts.map(function(x){return{l:x.n,v:x.id};}),ans:c.id,exp:c.n+" - "+d});})();
+  // Q6: qui n'appartient PAS
+  (function(){var d=dyns[1];var c=pick(SOVS.filter(function(x){return x.d!==d;}),1)[0];var w=pick(SOVS.filter(function(x){return x.d===d;}),3);var opts=shuffle([c].concat(w));qs.push({wiki:null,q:l.q6(d),opts:opts.map(function(x){return{l:x.n,v:x.id};}),ans:c.id,exp:c.n+" ("+c.d+")"});})();
+  // Q7: meme famille que
+  (function(){var s=pool[4];var same=SOVS.filter(function(x){return x.d===s.d&&x.id!==s.id;});if(!same.length){var s2=pool[0];qs.push({wiki:s2.w,q:l.q1,opts:shuffle(SOVS).slice(0,4).map(function(x){return{l:x.n,v:x.id};}),ans:s2.id,exp:s2.n});return;}var c=pick(same,1)[0];var w=pick(SOVS.filter(function(x){return x.d!==s.d;}),3);var opts=shuffle([c].concat(w));qs.push({wiki:s.w,q:l.q7(s.n),opts:opts.map(function(x){return{l:x.n,v:x.id};}),ans:c.id,exp:c.n+" - "+s.d});})();
+  // Q8: portrait -> nom
+  (function(){var s=pool[5];var w=pick(SOVS.filter(function(x){return x.id!==s.id;}),3);var opts=shuffle([s].concat(w));qs.push({wiki:s.w,q:l.q1,opts:opts.map(function(x){return{l:x.n,v:x.id};}),ans:s.id,exp:s.n+(s.e?" - "+s.e:"")});})();
+  return qs;
+}
+
+function startQuiz(){
+  var l=L();
+  qqs=genQs();qi=0;qs=0;qa=false;qh=[];
+  document.getElementById("quizStart").style.display="none";
+  document.getElementById("quizResults").className="quiz-results";
+  document.getElementById("quizQ").style.display="block";
+  document.getElementById("btnNext").className="btn-next";
+  showQ();
+}
+function showQ(){
+  var l=L();var q=qqs[qi];qa=false;
+  document.getElementById("quizProgTxt").textContent=(qi+1)+"/"+QN;
+  document.getElementById("progFill").style.width=Math.round(qi/QN*100)+"%";
+  document.getElementById("quizScoreLive").textContent=qs+" \u2713";
+  var port=document.getElementById("quizPortrait");port.innerHTML="";
+  if(q.wiki){
+    var img=document.createElement("img");
+    img.onerror=function(){port.textContent="\uD83D\uDC51";};
+    port.appendChild(img);
+    wikiImg(q.wiki,function(u){if(u&&img)img.src=u;else port.textContent="\uD83D\uDC51";});
+  } else {port.textContent="\uD83D\uDC51";}
+  document.getElementById("quizQTxt").textContent=q.q;
+  document.getElementById("quizFb").textContent="";document.getElementById("quizFb").className="quiz-feedback";
+  document.getElementById("btnNext").className="btn-next";
+  var optsEl=document.getElementById("quizOpts");optsEl.innerHTML="";
+  q.opts.forEach(function(opt){
+    var b=document.createElement("button");b.className="quiz-opt";b.textContent=opt.l;
+    b.onclick=function(){answerQ(opt.v,b,q);};optsEl.appendChild(b);
+  });
+}
+function answerQ(v,btn,q){
+  var l=L();
+  if(qa)return;qa=true;var ok=v===q.ans;if(ok)qs++;
+  var btns=document.getElementById("quizOpts").querySelectorAll(".quiz-opt");
+  btns.forEach(function(b){
+    b.disabled=true;
+    var bv=q.opts.filter(function(o){return o.l===b.textContent;})[0];
+    if(bv&&bv.v===q.ans)b.className="quiz-opt "+(b===btn?"correct":"reveal");
+    else if(b===btn&&!ok)b.className="quiz-opt wrong";
+  });
+  var fb=document.getElementById("quizFb");
+  fb.textContent=ok?(l.qOk+q.exp):(l.qKo+q.exp);
+  fb.className="quiz-feedback "+(ok?"ok":"ko");
+  var cL=q.opts.filter(function(o){return o.v===v;})[0];
+  var aL=q.opts.filter(function(o){return o.v===q.ans;})[0];
+  qh.push({q:q.q,ans:aL?aL.l:"?",cho:cL?cL.l:"?",ok:ok});
+  document.getElementById("quizScoreLive").textContent=qs+" \u2713";
+  var nb=document.getElementById("btnNext");
+  nb.textContent=qi<QN-1?l.qNext:l.qEnd;
+  nb.className="btn-next on";
+}
+function nextQ(){qi++;if(qi>=QN)showResults();else showQ();}
+function showResults(){
+  var l=L();
+  document.getElementById("quizQ").style.display="none";
+  document.getElementById("progFill").style.width="100%";
+  var res=document.getElementById("quizResults");res.className="quiz-results on";
+  document.getElementById("quizScoreBig").textContent=qs+"/"+QN;
+  document.getElementById("quizScoreLbl").textContent=l.qScoreLbl(qs,QN);
+  var vi=Math.min(Math.floor(qs/QN*l.qVerdicts.length),l.qVerdicts.length-1);
+  document.getElementById("quizVerdict").textContent=l.qVerdicts[vi];
+  document.getElementById("btnRestart").textContent=l.qReplay;
+  var rev=document.getElementById("quizReview");rev.innerHTML="";
+  qh.forEach(function(h){
+    var div=document.createElement("div");div.className="review-item";
+    div.innerHTML='<div class="review-icon">'+(h.ok?"\u2705":"\u274C")+'</div><div class="review-text"><strong>'+h.q+'</strong><br>'+(h.ok?h.ans:(l.qYourAns+h.cho+"<br>"+l.qGoodAns+h.ans))+'</div>';
+    rev.appendChild(div);
+  });
+}
+
+// Init
+document.getElementById("searchInput").oninput=function(){q=this.value;renderList();};
+buildFilters();
+renderList();
+</script>
+</body>
+</html>
