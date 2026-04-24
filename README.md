@@ -1,5 +1,8 @@
 # DynastiesRoyales
 
+# 1.2
+Icon change
+
 Royals Dynasties across Europe
 
 <title>Royal Dynastie</title> <style> body { font-family: -apple-system, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; color: #222; } h1 { font-size: 24px; } h2 { font-size: 16px; margin-top: 32px; color: #555; } a { color: #007aff; } </style>
